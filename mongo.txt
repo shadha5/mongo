@@ -1,0 +1,61 @@
+Microsoft Windows [version 10.0.19042.1165]
+(c) Microsoft Corporation. Tous droits réservés.
+
+C:\Users\HP>mongo
+MongoDB shell version v5.0.2
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("b2d31347-f280-4fe4-8e47-d4c33659a779") }
+MongoDB server version: 5.0.2
+================
+Warning: the "mongo" shell has been superseded by "mongosh",
+which delivers improved usability and compatibility.The "mongo" shell has been deprecated and will be removed in
+an upcoming release.
+We recommend you begin using "mongosh".
+For installation instructions, see
+https://docs.mongodb.com/mongodb-shell/install/
+================
+---
+The server generated these startup warnings when booting:
+        2021-09-14T11:00:54.752+02:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+---
+---
+        Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+        metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+        The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+        and anyone you share the URL with. MongoDB may use this information to make product
+        improvements and to suggest MongoDB products and deployment options to you.
+
+        To enable free monitoring, run the following command: db.enableFreeMonitoring()
+        To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+> db.contactlist.find({"_id":ObjectId("6140bef55c7109883d7f8fdf")})
+> use contact
+switched to db contact
+> db.contactlist.find({"_id":ObjectId("6140bef55c7109883d7f8fdf")})
+{ "_id" : ObjectId("6140bef55c7109883d7f8fdf"), "Lastname" : "Fatnassi", "Firstname" : "Sarra", "Email" : "sarra.f@gmail.com", "age" : 40 }
+> db.contactlist.find({age:{$gt:18}})
+{ "_id" : ObjectId("6140bef55c7109883d7f8fdd"), "Lastname" : "Ben Lahmer", "Firstname" : "Fares", "Email" : "fares@gmail.com", "age" : 26 }
+{ "_id" : ObjectId("6140bef55c7109883d7f8fdf"), "Lastname" : "Fatnassi", "Firstname" : "Sarra", "Email" : "sarra.f@gmail.com", "age" : 40 }
+> db.contactlist.find({$and:[{age:{$gt:18}},{Lastname:{regex:"ah"}}]})
+>  db.contactlist.find({$and:[{age:{$gt:18}},{Lastname:{$regex:"ah"}}]})
+{ "_id" : ObjectId("6140bef55c7109883d7f8fdd"), "Lastname" : "Ben Lahmer", "Firstname" : "Fares", "Email" : "fares@gmail.com", "age" : 26 }
+> db.contactlist.findAndUpdate({Lastname:"kefi"},{$set:{Firstname:"Anis"}})
+uncaught exception: TypeError: db.contactlist.findAndUpdate is not a function :
+@(shell):1:1
+> db.contactlist.findOneAndUpdate({Lastname:"Kefi"},{$set:{Firstname:"Anis"}})
+{
+        "_id" : ObjectId("6140bef55c7109883d7f8fde"),
+        "Lastname" : "Kefi",
+        "Firstname" : "Seif",
+        "Email" : "kefi@gmail.com",
+        "age" : 15
+}
+>  db.contactlist.deleteMany({age:{$lt:5})
+... db.contactlist.deleteMany({age:{$lt:5}})
+...
+... ^C
+
+> db.contactlist.deleteMany({age:{$lt:5}})
+{ "acknowledged" : true, "deletedCount" : 2 }
+>
